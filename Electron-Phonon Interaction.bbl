@@ -1,0 +1,43 @@
+\begin{thebibliography}{4}
+\expandafter\ifx\csname natexlab\endcsname\relax\def\natexlab#1{#1}\fi
+\expandafter\ifx\csname bibnamefont\endcsname\relax
+  \def\bibnamefont#1{#1}\fi
+\expandafter\ifx\csname bibfnamefont\endcsname\relax
+  \def\bibfnamefont#1{#1}\fi
+\expandafter\ifx\csname citenamefont\endcsname\relax
+  \def\citenamefont#1{#1}\fi
+\expandafter\ifx\csname url\endcsname\relax
+  \def\url#1{\texttt{#1}}\fi
+\expandafter\ifx\csname urlprefix\endcsname\relax\def\urlprefix{URL }\fi
+\providecommand{\bibinfo}[2]{#2}
+\providecommand{\eprint}[2][]{\url{#2}}
+
+\bibitem[{\citenamefont{Sadovskii}(2006)}]{sadovskii2006diagrammatics}
+\bibinfo{author}{\bibfnamefont{M.~V.} \bibnamefont{Sadovskii}},
+  \emph{\bibinfo{title}{Diagrammatics: lectures on selected problems in
+  condensed matter theory}} (\bibinfo{publisher}{World Scientific},
+  \bibinfo{year}{2006}).
+
+\bibitem[{\citenamefont{Abrikosov et~al.}(2012)\citenamefont{Abrikosov, Gorkov,
+  and Dzyaloshinski}}]{abrikosov2012methods}
+\bibinfo{author}{\bibfnamefont{A.~A.} \bibnamefont{Abrikosov}},
+  \bibinfo{author}{\bibfnamefont{L.~P.} \bibnamefont{Gorkov}},
+  \bibnamefont{and} \bibinfo{author}{\bibfnamefont{I.~E.}
+  \bibnamefont{Dzyaloshinski}}, \emph{\bibinfo{title}{Methods of quantum field
+  theory in statistical physics}} (\bibinfo{publisher}{Courier Corporation},
+  \bibinfo{year}{2012}).
+
+\bibitem[{\citenamefont{Mahan}(2013)}]{mahan2013many}
+\bibinfo{author}{\bibfnamefont{G.~D.} \bibnamefont{Mahan}},
+  \emph{\bibinfo{title}{Many-particle physics}} (\bibinfo{publisher}{Springer
+  Science \& Business Media}, \bibinfo{year}{2013}).
+
+\bibitem[{\citenamefont{Lifshitz and
+  Pitaevskii}(2013)}]{lifshitz2013statistical}
+\bibinfo{author}{\bibfnamefont{E.~M.} \bibnamefont{Lifshitz}} \bibnamefont{and}
+  \bibinfo{author}{\bibfnamefont{L.~P.} \bibnamefont{Pitaevskii}},
+  \emph{\bibinfo{title}{Statistical physics: theory of the condensed state}},
+  vol.~\bibinfo{volume}{9} (\bibinfo{publisher}{Elsevier},
+  \bibinfo{year}{2013}).
+
+\end{thebibliography}

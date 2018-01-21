@@ -1,0 +1,375 @@
+%\documentclass[a4paper,11pt]{article}
+\documentclass[prl,aps,twocolumn]{revtex4}
+\usepackage{mathrsfs,amssymb,amsfonts,amsmath,bm}
+\usepackage{tikz,pgfplots}
+\usetikzlibrary{arrows,shapes,chains}
+\usepackage{hyperref}
+\usepackage{dsfont}	% 双线数字 \mathds{1}
+\usepackage[compact=1.1]{feynmp-auto} %%% Feynman Diagram
+
+%%%%%%%%%%%%%%%%%正体微分%%%%%%%%%%%%%%%%%%
+\newcommand*\dd{\mathop{}\!\mathrm{d}}
+\newcommand*\ddd[1]{\mathop{}\!\mathrm{d^#1}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\allowdisplaybreaks[4] %%%%%%%%%%%%%%%%%% 允许 align 跨页编排
+%%%%%%%%%%%%%%%%%%%%%方程按节编号%%%%%%%%%%%%%%%%%%%%%
+%\numberwithin{equation}{section}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+\title{Asymptotic Behaviors about the Self-energy of Electron-Phonon Interaction}
+\author{Xiaodong Hu\footnote{PB14203081, \url{cdqz2014@mail.ustc.edu.cn}}}
+\author{Shuxuan Wang\footnote{PB14203075}}
+\affiliation{Department of Modern Physics, University of Science and Technology of China, Hefei, Anhui}
+\date{January 10, 2018}
+
+\begin{abstract}
+	Landau Fermi-liquid theory is successful in explanation of the power of free electron gas model and robustness of the Fermi surface in solids, where electron and phonons are coupled. But to prove that Landau Fermi-liquid theory does holds in solids, one have to compute the lifetime of low energy elementary excitation -- quasi-particles and quasi-holes, then check that the fields renormalization factor $Z$ is not zero. So in this paper, we compute the asymptotic behaviors of the imaginary part of self-energy diagram in details at RPA approximation and low temperature. The results support Landau Fermi-liquid theory.
+\end{abstract}
+%, whose validity is guaranteed by the principle of detailed balence and theorem of Markov chain 
+
+\pacs{}
+\maketitle
+%\tableofcontents
+
+
+\begin{fmffile}{hxd}
+
+We mainly follow the derivation of \cite{sadovskii2006diagrammatics}, but with different computation techniques. \par
+
+This paper is divided by three sections. In the first section, we compare the notation of two typical factions to eliminate the potential unnecessary distraction due to different form of results. In the next two sections we compute the finite temperature and zero temperature self-energy under RPA approximation, respectively. Little discussion is applied to fit with various given conditions. In the last section, we check the validity of Landau Fermi-liquid theory be computing its field renormalization factor, as is taught on classes. 
+
+
+\section{Equivalence of the Notation}\label{sec:Notation}
+	Before our mainline derivation, we are to prove the equivalence of the different notation used in \cite{abrikosov2012methods,sadovskii2006diagrammatics} and the much cumbersome one used in \cite{mahan2013many}, i.e., the notation taught on classes. The reason we do this not only just to show the theoretical consistency, but we also concern about all the conditions we have utilized here, which crucially influence the future divergent integral approximation. All our discussion is confined to the single-loop self-energy (RPA approximation) in this article, as is illustrated in FIG. \ref{fig:1}, so dose the proof of equivalence.\par
+	\begin{figure}[!htp]
+		\begin{tikzpicture}
+		\node[above] at (5,0) {
+			\begin{fmfgraph}(100,100)
+				\fmfleft{i} \fmfright{o}
+				\fmf{fermion}{i,o}	%, label=$\bm{q},,\omega$
+				% NOTE! Multi-comma <,,> is necessary here, otherwise it will conflict with the comma seperating arguments
+				\fmf{dashes,left,tension=2}{i,o}
+				\fmfdot{i,o}
+			\end{fmfgraph}};
+		\node[above] at (5,2) {$\bm{q}, \omega$};
+		\node[below] at (5,0) {$\bm{p-q}, E-\omega$};
+		\node[left]	at (3,0.3) {$|M_{\bm{q}}|$ or $g$};
+		\node[right] at (7,0.3) {$|M_{\bm{q}}|$ or $g$};
+		\end{tikzpicture}
+		\caption{{\bf Self-Energy of Electron-phonon Interaction}}
+		\label{fig:1}
+	\end{figure}
+	Starting with a phenomenological \emph{continuum model}, \cite{lifshitz2013statistical,abrikosov2012methods} obtained the phonon field operator through quantization the elastic wave
+	\begin{equation}\label{1.1}
+		\varphi (\bm{r},t):=i \sum^{}_{\bm{k}} \sqrt{\dfrac{\omega_{\bm{k}}}{2V}}\left(a_{\bm{k}}+a^\dagger_{\bm{-k}}\right)e^{-(i \omega_{\bm{k}} t-\bm{r}\cdot\bm{k})}.
+	\end{equation}
+	With a slightly different definition of Green function (in accordance with that in HEP)
+	\begin{equation*}
+		D(x,x'):=\langle T\varphi (x)\varphi^\dagger(x')\rangle,
+	\end{equation*}
+	they got a different form of $D^{(0)}$ in the momentum space
+	\begin{equation}\label{1.2}
+		D^{0}(\bm{q},\omega)=\dfrac{\omega_{\bm{q}}^2}{\omega^2-\omega_{\bm{q}}^2+i\delta}.
+	\end{equation}
+	\indent Still in this model, they considered the simplest \emph{deformation potential}\cite{lifshitz2013statistical}: in an \emph{isotropic lattice}, only the \emph{longitudinal acoustic} phonons interact with electrons. Under the lowest order approximation, they still got the coupling term
+	\begin{equation}\label{1.3}
+		H_{\text{int}}=g \int\,\dd {\bm{r}}\,\psi^\dagger(\bm{r})\psi(\bm{r})\varphi(\bm{r}),
+	\end{equation}
+	or in momentum space,
+	\begin{equation}\label{1.4}
+		H_{\text{int}}=ig \sum^{}_{\bm{k,q}} \sqrt{\dfrac{\omega_{\bm{q}}}{2V}}\,C^\dagger_{\bm{k+q}}C_{\bm{k}}(a_{\bm{q}}+a_{\bm{-q}}^\dagger),
+	\end{equation}
+	with $g$ a coupling constant. So in this notation, the amplitude of Feynman diagram FIG. \ref{fig:1} can be expressed as
+	\begin{equation}\label{1.5}
+		\Sigma(\bm{p},E)=ig^2\int\dfrac{\dd\bm{q}\dd\omega}{(2\pi)^4}\,G^{(0)}(\bm{p-q},E-\omega)\dfrac{\omega_{\bm{q}}^2}{\omega^2-\omega_{\bm{q}}^2+i\delta}.
+	\end{equation}
+	\indent In contrast, starting with the rigorous consideration of perturbation of lattice vibration, \cite{mahan2013many} gives a general $\bm{q}$-dependent interactive Hamiltonian
+	\begin{equation}\label{1.6}
+		H_{\text{e-p}}=\sum_{\bm{q,k}}M_{\bm{q}}C_{\bm{k+q}}^\dagger C_{\bm{k}}(a_{\bm{q}}+a_{\bm{-q}}^\dagger)
+	\end{equation}
+	with (ignoring all spin labels)
+	\begin{equation*}
+		M_{\bm{q}}\equiv -i \left(\dfrac{N\hbar}{2M\omega_{\bm{q}}}\right)^{1/2}V_{\text{e-i}}(\bm{q})(\bm{e}_{\bm{q}}\cdot\bm{q}).
+	\end{equation*}
+	FIG. \ref{fig:1} is now expressed as
+	\begin{equation}\label{1.7}
+		\Sigma(\bm{p},E)=i\int\dfrac{\dd\bm{q}\dd\omega}{(2\pi)^4}\,|M_{\bm{q}}|^2 G^{(0)}(\bm{p}-\bm{q},E-\omega)\dfrac{2\omega_{\bm{q}}}{\omega^2-\omega_{\bm{q}}^2+i\delta}
+	\end{equation}
+	
+	\noindent instead. And we are to show that \eqref{1.5} and \eqref{1.7} are equivalent under some specific conditions here. In fact, if we suppose that 
+	\begin{itemize}
+		\item Only the \emph{long-wavelength longitudinal acoustic phonons} have contribution to the coupling with electrons in deformation;
+		\item The electron-ion potential $V_{\text{e-i}}(q)$ is \emph{approximately} taken to be a \emph{deformation constant} $D$ at $q \rightarrow 0$;
+	\end{itemize}
+	Then $|M_{\bm{q}}|$ reduces to simple
+	\begin{equation*}
+		|M_{\bm{q}}|^2=\dfrac{N\hbar}{2Mc|q|}Dq^2,
+	\end{equation*}
+	and \eqref{1.7} becomes
+	\begin{equation}\label{1.8}
+		\Sigma(\bm{p},E)=ig^2\int\dfrac{\dd\bm{q}\dd\omega}{(2\pi)^4}\,G^{(0)}(\bm{p}-\bm{q},E-\omega)\dfrac{c^2k^2}{\omega^2-c^2k^2+i\delta},
+	\end{equation}
+	with $g^2\equiv N\hbar D/4Mc^2$, which is exactly \eqref{1.5}. So we are done.
+
+\section{Asymptotic Behavior of Self-Energy at Finite Temperature}\label{sec:Asymptotic Behavior of Self-Energy at Finite Temperature}
+	In Matsubara formalism, the imaginary-time self-energy in FIG. \ref{fig:1} is expressed by
+	\begin{equation}\label{2.1}
+		\Sigma(\bm{p},i\omega_n)=\dfrac{-g^2}{(2\pi)^3\beta}\sum_{m}\int\dfrac{\dd\bm{q}}{i(\omega_n-\omega_m)-\xi_{\bm{p-q}}}\dfrac{-\omega_{\bm{q}}^2}{\omega_m^2+\omega_{\bm{q}}^2},
+	\end{equation}
+	where the minus sign at the front comes from the definition of imaginary-time Green function and counts of contraction pairs.\par 
+	Denote the complex function
+	\begin{equation*}
+		f(z)\equiv\dfrac{\omega_{\bm{q}}^2}{z^2-\omega_{\bm{q}}^2}\dfrac{1}{i\omega_n-z-\xi_{\bm{p-q}}},
+	\end{equation*}
+	then we can perform the frequency summation in \eqref{2.1} in advance that
+	\begin{equation}\label{2.3}
+		S(\bm{p},i\omega_n;\bm{q})=-\dfrac{1}{\beta}\sum_m f(i\omega_m).
+	\end{equation}
+	\indent Now consider the integral on the large circle $\mathcal{C}_R$
+	\begin{equation}\label{2.4}
+		I=\lim_{R \rightarrow \infty}\oint_{\mathcal{C}_R}\dfrac{\dd z}{2\pi i}f(z)n_B(z),
+	\end{equation}
+	where
+	\begin{equation*}
+		n_B(z)\equiv\dfrac{1}{e^{\beta z}-1}.
+	\end{equation*}
+	Since $g(z)\equiv f(z)n_B(z)$ is continuous on $z=Re^{i\theta}$, and the limit $\displaystyle \lim_{R \rightarrow \infty}zg(z)$ exists, by a lemma in complex analysis, we alway have
+	\begin{equation*}
+		\lim_{R \rightarrow \infty}\oint_{\mathcal{C}_R} g(z)\dd z=0.
+	\end{equation*}
+	That is, $I=0$.\par
+	On the other hand, by the residue theorem, we have
+	\begin{equation*}
+		I=2\pi i\sum_k \mathrm{Res}(z_k;g) .
+	\end{equation*}
+	All the residues come from three parts: boson distribution $n_B$, free phonon propagator $\mathcal{D}^{(0)}(\bm{q},i\omega_{\bm{q}})$, and free electron propagator $\mathcal{G}^{(0)}(\bm{p-q},i\omega_n-i\omega_m)$. For the first part, let $e^{\beta z}=1$, one gets $z_m=i\frac{2m\pi}{\beta}=i\omega_m$, so
+	\begin{widetext}
+		\begin{align*}
+			\mathrm{Res}_1(i\omega_m;g)&=\lim_{z \rightarrow i\omega_m}(z-i\omega_m) \dfrac{1}{e^{\beta z}-1}\dfrac{\omega_{\bm{q}}^2}{z^2-\omega_{\bm{q}}^2}\dfrac{1}{i\omega_n-z-\xi_{\bm{p-q}}},\\
+			&=\lim_{z \rightarrow i\omega_m}(z-i\omega_m) \dfrac{1}{e^{\beta (z-i\omega_m)}-1}\dfrac{\omega_{\bm{q}}^2}{z^2-\omega_{\bm{q}}^2}\dfrac{1}{i\omega_n-z-\xi_{\bm{p-q}}},\\
+			&=\lim_{z \rightarrow i\omega_m}(z-i\omega_m) \dfrac{1}{1+\beta(z-i\omega_m)+\mathcal{O}(\beta^2(z-i\omega_m)^2)-1}\dfrac{\omega_{\bm{q}}^2}{z^2-\omega_{\bm{q}}^2}\dfrac{1}{i\omega_n-z-\xi_{\bm{p-q}}},\\
+			&=\dfrac{1}{\beta}\dfrac{\omega_{\bm{q}}^2}{-\omega_m^2-\omega_{\bm{q}}^2}\dfrac{1}{i(\omega_n-\omega_m)-\xi_{\bm{p-q}}}=\dfrac{1}{\beta}f(i\omega_m),
+		\end{align*}
+	\end{widetext}
+	where in the second line we insert the identity $e^{i\beta\omega_m}=1$. As for the residues from $\mathcal{D}^{(0)}(\bm{q},i\omega_{\bm{q}})$, obviously it has singularity at $z_k=\pm\omega_{\bm{q}}$. Then
+	\begin{align*}
+		\mathrm{Res}_2(+\omega_{\bm{q}};g)&=\dfrac{1}{e^{\beta\omega_{\bm{q}}}-1}\dfrac{\omega_{\bm{q}}^2}{2\omega_{\bm{q}}}\dfrac{1}{i\omega_n-\omega_{\bm{q}}-\xi_{\bm{p-q}}}\\
+		&=\dfrac{\omega_{\bm{q}}}{2}\dfrac{n_B(\omega_{\bm{q}})}{i\omega_n-\omega_{\bm{q}}-\xi_{\bm{p-q}}},
+	\end{align*}
+	
+	\noindent and
+	\begin{align*}
+		\mathrm{Res}_2(-\omega_{\bm{q}};g)&=\dfrac{1}{e^{-\beta\omega_{\bm{q}}}-1}\dfrac{\omega_{\bm{q}}^2}{-2\omega_{\bm{q}}}\dfrac{1}{i\omega_n+\omega_{\bm{q}}-\xi_{\bm{p-q}}}\\
+		&=\dfrac{\omega_{\bm{q}}}{2}\dfrac{n_B(\omega_{\bm{q}})+1}{i\omega_n+\omega_{\bm{q}}-\xi_{\bm{p-q}}}.
+	\end{align*}
+
+	Similarly, for singularities coming from $\mathcal{G}^{(0)}(\bm{p-q},i\omega_n-i\omega_m)$, we have
+	\begin{align*}
+		\mathrm{Res}_3(i\omega_n-\xi_{\bm{p-q}};g)&=\dfrac{-1}{e^{\beta(i\omega_n-\xi_{\bm{p-q}})}-1}\dfrac{\omega_{\bm{q}}^2}{(i\omega_n-\xi_{\bm{p-q}})^2-\omega_{\bm{q}}^2}\\
+		&=\dfrac{1}{e^{-\beta\xi_{\bm{p-q}}}+1}\dfrac{\omega_{\bm{q}}^2}{(i\omega_n-\xi_{\bm{p-q}})^2-\omega_{\bm{q}}^2}\\
+		&=\dfrac{n_F(-\xi_{\bm{p-q}})\omega_{\bm{q}}^2}{(i\omega_n-\xi_{\bm{p-q}})^2-\omega_{\bm{q}}^2},
+	\end{align*}
+	where in the second line we utilize the condition that fermions only have the contribution of the summation of odd integer $\omega_n=\frac{(2n+1)\pi}{\beta}$. Rewriting the last residue in partial fractions
+	\begin{equation*}
+		\mathrm{Res}_3=\dfrac{-\omega_{\bm{q}}}{2}\left(\dfrac{n_F(-\xi_{\bm{p-q}})}{i\omega_n-\xi_{\bm{p-q}}+\omega_{\bm{q}}}-\dfrac{n_F(-\xi_{\bm{p-q}})}{i\omega_n-\xi_{\bm{p-q}}-\omega_{\bm{q}}}\right),
+	\end{equation*}
+	then the integral \ref{2.4} becomes
+	\begin{widetext}
+		\begin{equation*}
+			0=\sum_m\dfrac{1}{\beta}f(i\omega_m)+\dfrac{\omega_{\bm{q}}}{2}\left(\dfrac{n_F(-\xi_{\bm{p-q}})+n_B(\omega_{\bm{q}})}{i\omega_n-\xi_{\bm{p-q}}-\omega_{\bm{q}}}+\dfrac{-n_F(-\xi_{\bm{p-q}})+n_B(\omega_{\bm{q}})+1}{i\omega_n-\xi_{\bm{p-q}}+\omega_{\bm{q}}}\right).
+		\end{equation*}
+		Hence
+		\begin{equation}
+			\Sigma(\bm{p},i\omega_n)\equiv g^2\int\dfrac{\dd\bm{q}}{(2\pi)^3}\,S(\bm{p},i\omega_n;\bm{q})=\dfrac{g^2}{2}\int\dfrac{\dd\bm{q}}{(2\pi)^3}\,\dfrac{\omega_{\bm{q}}}{2}\left(\dfrac{n_F(-\xi_{\bm{p-q}})+n_B(\omega_{\bm{q}})}{i\omega_n-\xi_{\bm{p-q}}-\omega_{\bm{q}}}+\dfrac{-n_F(-\xi_{\bm{p-q}})+n_B(\omega_{\bm{q}})+1}{i\omega_n-\xi_{\bm{p-q}}+\omega_{\bm{q}}}\right).\label{2.5}
+		\end{equation}
+	\end{widetext}
+	\indent Standardized \emph{analysis continuation} of \eqref{2.5}, $i\omega_n \rightarrow E+i\delta$, directly gives the \emph{retarded real-time} self-energy $\Sigma^R(\bm{p},E)$
+	\begin{widetext}
+		\begin{equation}\label{2.6}
+			\Sigma^R(\bm{p},E)=g^2\int\dfrac{\dd\bm{q}}{(2\pi)^3}\,\dfrac{\omega_{\bm{q}}}{2}\left(\dfrac{n_F(-\xi_{\bm{p-q}})+n_B(\omega_{\bm{q}})}{E-\xi_{\bm{p-q}}-\omega_{\bm{q}}+i\delta}+\dfrac{-n_F(-\xi_{\bm{p-q}})+n_B(\omega_{\bm{q}})+1}{E-\xi_{\bm{p-q}}+\omega_{\bm{q}}+i\delta}\right).
+		\end{equation}
+	\end{widetext}
+
+	Now that we only concern about the asymptotic behaviors of the \emph{imaginary part} of $\Sigma^R(\bm{p},E)$, we can simplify the complex integral \eqref{2.6} by taking the imaginary part before integration. In fact, by Sokhotsky-Wiestrass formula $\displaystyle\dfrac{1}{x\pm i\delta}=\mathcal{P}\dfrac{1}{x}\mp i\delta(x),$
+	%\begin{equation}\label{2.7}
+	%	\dfrac{1}{x\pm i\delta}=\mathcal{P}\dfrac{1}{x}\mp i\delta(x),
+	%\end{equation}
+	\eqref{2.6} becomes
+	% $\mathrm{Im}\,\Sigma^R(\bm{p},E)$ can be direct obtained as following
+	\begin{widetext}
+		\begin{align*}
+			\mathrm{Im}\,\Sigma^R(\bm{p},E)&=g^2\int\dfrac{\dd\bm{q}}{(2\pi)^3}\,\dfrac{\omega_{\bm{q}}}{2}\bigg[\bigg(-n_F(-\xi_{\bm{p-q}})+n_B(\omega_{\bm{q}})+1\bigg)\cdot\delta \left(E-\xi_{\bm{p-q}}+\omega_{\bm{q}}\right)\\
+			&\qquad+\bigg(n_F(-\xi_{\bm{p-q}})+n_B(\omega_{\bm{q}})\bigg)\cdot\delta\left(E-\xi_{\bm{p-q}}-\omega_{\bm{q}}\right) \bigg]\\
+			&=g^2\int\dfrac{\dd\bm{q}}{(2\pi)^3}\,\dfrac{\omega_{\bm{q}}}{2}\bigg[\bigg(-n_F(-\xi_{\bm{p-q}})+n_B(\omega_{\bm{q}})+1\bigg)\cdot\delta \left(E-\dfrac{p^2-2\bm{p\cdot q}+\mathcal{O}(q^2)-p_F^2}{2m}+cq\right)\\
+			&\qquad+\bigg(n_F(-\xi_{\bm{p-q}})+n_B(\omega_{\bm{q}})\bigg)\cdot\delta\left(E-\dfrac{p^2-2\bm{p\cdot q}+\mathcal{O}(q^2)-p_F^2}{2m}-cq\right)\bigg]\\
+			&=g^2\int\dfrac{q^2\dd q\dd\cos\theta}{(2\pi)^2}\,\dfrac{\omega_{\bm{q}}}{2}\bigg[\bigg(-n_F(-\xi_{\bm{p-q}})+n_B(\omega_{\bm{q}})+1\bigg)\cdot\delta \left(E-\xi_{\bm{p}}+\dfrac{pq}{m}\cos\theta+cq\right)\\
+			&\qquad+\bigg(n_F(-\xi_{\bm{p-q}})+n_B(\omega_{\bm{q}})\bigg)\cdot\delta\left(E-\xi_{\bm{p}}+\dfrac{pq}{m}\cos\theta-cq\right)\bigg]\\
+			&=g^2\int\dfrac{q^2\dd q\dd\cos\theta}{(2\pi)^2}\,\dfrac{\omega_{\bm{q}}}{2}\dfrac{1}{\left|\dfrac{pq}{m}\right|}\bigg[\bigg(-n_F(-\xi_{\bm{p-q}})+n_B(\omega_{\bm{q}})+1\bigg)\cdot\delta\bigg(\cos\theta-\dfrac{m}{pq}(\xi_{\bm{p}}-E-cq)\bigg)\\
+			&\qquad+\bigg(n_F(-\xi_{\bm{p-q}})+n_B(\omega_{\bm{q}})\bigg)\cdot\delta\bigg(\cos\theta-\dfrac{m}{pq}(\xi_{\bm{p}}-E+cq)\bigg)\bigg]\\
+			&=g^2\int\dfrac{q^2\dd q\dd\cos\theta}{(2\pi)^2}\,\dfrac{\omega_{\bm{q}}m}{2pq}\bigg\{\bigg[-n_F\bigg(-\xi_{\bm{p}}+\dfrac{pq}{m}\cos\theta\bigg)+n_B(cq)+1\bigg)\cdot\delta\bigg(\cos\theta-\dfrac{m}{pq}(\xi_{\bm{p}}-E-cq)\bigg)\\
+			&\qquad+\bigg[n_F\bigg(-\xi_{\bm{p}}+\dfrac{pq}{m}\cos\theta\bigg)+n_B(cq)\bigg)\cdot\delta\bigg(\cos\theta-\dfrac{m}{pq}(\xi_{\bm{p}}-E+cq)\bigg)\bigg]\bigg\}\\
+			&=g^2\int\dfrac{\dd q}{(2\pi)^2}\,\dfrac{mq\omega_{\bm{q}}}{2p}\bigg[-n_F(-E-cq)+2n_B(cq)+1+n_F(-E+cq)\bigg]\\
+			&=\dfrac{g^2mc}{2p(2\pi)^2}\int\dd q\,q^2\bigg[\dfrac{1}{e^{-\beta(E+cq)}+1}+\dfrac{1}{e^{\beta(-E+cq)}+1}+1+\dfrac{2}{e^{-\beta cq}-1}\bigg]\\
+			&=\dfrac{g^2mc}{2p(2\pi)^2}\int\dd q\,\bigg[\dfrac{q^2}{e^{\beta cq}+e^{\beta E}}+\dfrac{q^2}{e^{\beta(-E+cq)}+1}+\dfrac{2q^2}{e^{-\beta cq}-1}\bigg]\\
+			&=\dfrac{g^2mc}{2p(2\pi)^2}\int\dd q\,\bigg[-\frac{2\,\mathrm{Li}_3(-e^{-\beta E})}{\beta^3 c^3}-\frac{2\,\mathrm{Li}_3(-e^{\beta E})}{\beta^3 c^3}+\dfrac{4\zeta(3)}{c^3 \beta^3}\bigg],
+		\end{align*}
+	\end{widetext}
+		where in the second equal sign we utilize the conditions mentioned in section one that only \emph{long-wavelength longitudinal acoustic phonons} couple with electrons, so $q \rightarrow 0$ and $\omega_{\bm{q}}=cq$. And in the last line we introduce the \emph{polylogarithm function} and the celebrated \emph{Riemann Zeta function} 
+	\begin{equation*}
+		\mathrm{Li}_n(z):=\sum_{k=1}^\infty\dfrac{z^k}{k^n},\quad \zeta(s):=\sum_{k=1}^\infty k^{-s}.
+	\end{equation*}
+	\indent At the \emph{low temperature limit} $\beta\rightarrow\infty$, the first part
+	\begin{equation*}
+		\dfrac{-2\,\mathrm{Li}_3(-e^{-\beta\epsilon})}{\beta^3 c^3}\sim\dfrac{2e^{-\beta E}}{c^3\beta^3}+\mathcal{O}(\beta^{-3}e^{-2\beta E})
+	\end{equation*}
+	converges exponentially so can be dropped out, while 
+	\begin{equation*}
+		\dfrac{-2\,\mathrm{Li}_3(-e^{
+		\beta\epsilon})}{\beta^3 c^3}\sim\dfrac{3  E^3}{c^3}+\mathcal{O}(\beta^{-3}e^{-\beta E}).
+	\end{equation*}
+	Therefore, electron damping due to electron-phonon interaction for $ E\ll\omega_D$ and $T\ll\omega_D$ can be written in a unified form that
+	\begin{equation}\label{2.7}
+		\mathrm{Im}\,\Sigma^R(\bm{p},E)\sim\max\bigg[
+		\dfrac{4\zeta(3)}{c^3}T^3,\dfrac{3}{c^3} E^3\bigg].
+	\end{equation}
+	Particularly, at zero temperature, we expect the asymptotic behavior of self-energy as (still under the condition that $ E\ll\omega_D$)
+	\begin{equation}\label{2.8}
+		\mathrm{Im}\,\Sigma^R(\bm{p},E)\sim E^3.
+	\end{equation}
+	This relation will be independently checked in the next section.
+
+\section{Asymptotic Behavior of Self-Energy at Zero Temperature}\label{sec:Asymptotic Behavior of Self-Energy at Zero Temperature}
+	In this section, we will prove the self-consistency of the computation we perform above through direct computation of asymptotic behaviors of electron self-energy. \par
+	We start with re-writing \eqref{1.8} explicitly
+	\begin{align}
+		\Sigma(\bm{p},E)=ig^2\,&\int\dfrac{\dd\bm{q}\dd\omega}{(2\pi)^4}\,\dfrac{1}{E-\omega-\xi_{\bm{p-q}}+i\delta_{\bm{p-q}}}\nonumber\\
+		&\times\dfrac{c^2q^2}{\omega^2-c^2q^2+i\delta},\label{3.1}
+	\end{align}
+	where $i\delta_{\bm{p-q}}\equiv i\delta\,\mathrm{sgn}(\xi_{\bm{p-q}})$ and we substituted the long wave-length limit $\omega_{\bm{k}}=ck$. Besides, it is worth mentioning that the two infinitesimal $\delta$ on two sides of times sign, though are written in the same symbol, is always \emph{independent}. One can easily observe that singularities $\omega_1=E-\xi_{\bm{p-q}}+i\delta_{\bm{p-q}}, \omega_{2,3}=\pm(cq-i\delta)$ settle on the complex frequency plane. So the integral \eqref{3.1} can be splitted into two parts in terms of the sign of $\delta_{\bm{p-q}}$: when $\mathrm{sgn}(\xi_{\bm{p-q}})>0$, we choose the \emph{upper} semi-circle as the integral contour, in which merely \emph{one} singularity $\omega_3$ exists. Ditto for another case $\mathrm{sgn}(\xi_{\bm{p-q}})>0$. Note that the power of integrand is $q^{-3}$, so the contribution from the arc vanishes as the radius of semicircle tends to infinity. Hence by residue theorem the real integral \eqref{3.1} equals to the residues in two cases.
+	\begin{widetext}
+		\begin{align}
+			\Sigma(\bm{p},E)&=\dfrac{ig^2}{(2\pi)^4}\times \int\dd\bm{q}\bigg(2\pi i\sum_{j=2,3}\mathrm{Res(\omega_{j})}\bigg)\nonumber\\
+			&=\dfrac{ig^2}{(2\pi)^4}\bigg(\int_{\xi_{\bm{p-q}}>0}\,(-2\pi i)\times\dfrac{1}{E-(cq-i\delta)-\xi_{\bm{p-q}}+i\delta}\times\dfrac{1}{2(cq-i\delta)}\nonumber\\
+			&\qquad+\int_{\xi_{\bm{p-q}}<0}\,2\pi i\times\dfrac{1}{E+(cq-i\delta)-\xi_{\bm{p-q}}-i\delta}\times\dfrac{1}{-2(cq-i\delta)}\bigg)\cdot c^2q^2\,\dd\bm{q}\nonumber\\
+			&=\dfrac{g^2}{(2\pi)^3}\bigg(\int_{\xi_{\bm{p-q}}>0}\,\dfrac{1}{E-cq-\xi_{\bm{p-q}}+2i\delta}\times\dfrac{1}{2cq-2i\delta}+\int_{\xi_{\bm{p-q}}<0}\,\dfrac{1}{E+cq-\xi_{\bm{p-q}}-2i\delta}\times\dfrac{1}{2cq-2i\delta}\bigg)\cdot c^2q^2\,\dd\bm{q}\nonumber\\
+			&=\dfrac{cg^2}{2(2\pi)^3}\bigg(\int_{\xi_{\bm{p-q}}>0}\,\dfrac{q}{E-cq-\xi_{\bm{p-q}}+i\delta'}+\int_{\xi_{\bm{p-q}}<0}\,\dfrac{q}{E+cq-\xi_{\bm{p-q}}-i\delta'}\bigg)\dd\bm{q},\label{3.2}
+		\end{align}
+		where in the last line we redefine the infinitesimal term by $\delta'=2\delta$ and it \emph{seems} that we have \emph{partially drop the crucial infinitesimal term $-2i\delta$ in each second fraction}. This operation is abused in \cite{sadovskii2006diagrammatics}, but is entirely mathematically well-grounded! We will give a short interpretation on this dropping operation in the appendix.\par
+		%the result is sensitive to the special form of the integrand function here so Sadovskii got the correct result totally by coincidence. We will provide a rigorous proof of this dropping operation in the appendix.\par
+
+
+\iffalse
+	, while \emph{none} of which settle on the real axis, so we do \emph{not} have to introduce complex frequency and deliberately bring in the Boson distribution and choose the integral contour, though this approach is popular in literatures\cite{abrikosov2012methods,sadovskii2006diagrammatics}. Instead, we now are able to direct work out the polynomial integral of frequency
+	\begin{equation}\label{3.2}
+		I(\bm{p},E;\bm{q})\equiv\int\dfrac{\dd\omega}{(\alpha-\omega)(\omega-\beta)(\omega+\beta)},
+	\end{equation}
+	where
+	\begin{equation*}
+		\alpha=E-\xi_{\bm{p-q}}+i\delta_{\bm{p-q}},\quad \beta=cq-i\delta.
+	\end{equation*}
+	Let 
+	\begin{equation*}
+		I=\int\dd\omega\left(\dfrac{A}{\alpha-\omega}+\dfrac{B}{\omega-\beta}+\dfrac{C}{\omega+\beta}\right),
+	\end{equation*}
+	then reduce the fractions to a common denominator, and compare the variables, we have
+	\begin{widetext}
+		\begin{equation*}
+			\begin{cases}
+				\omega^2:&A-B-C=0,\\
+				\omega:&B(\alpha-\beta)+C(\alpha+\beta)=0,\\
+				1:&\alpha \beta(B-C)=1,
+			\end{cases}\implies A=\dfrac{1}{\alpha^2},\quad B=-\dfrac{\alpha+\beta}{2 \alpha^2 \beta},\quad C=-\dfrac{\alpha-\beta}{2 \alpha^2 \beta}.
+		\end{equation*}
+		Finally, we obtain
+		\begin{equation*}
+			I(\bm{p},E;\bm{q})=
+			\begin{cases}
+				%\dfrac{-i\pi}{(\omega_{\bm{q}}-i\delta)(cq-i\delta-i\delta_{\bm{p-q}}+E-\xi_{\bm{p-q}})}=
+				\dfrac{-i\pi}{(cq-i\delta)(cq-i2\delta+E-\xi_{\bm{p-q}})},&\mathrm{sgn}(\xi_{\bm{p-q}})>0,\\
+				%\dfrac{i\pi}{(\omega_{\bm{q}}-i\delta)(cq-i\delta+i\delta_{\bm{p-q}}-E+\xi_{\bm{p-q}})}=
+				\dfrac{i\pi}{(cq-i\delta)(cq-i2\delta-E+\xi_{\bm{p-q}})}.&\mathrm{sgn}(\xi_{\bm{p-q}})<0.
+			\end{cases}
+		\end{equation*}
+		Since $\delta$ is infinitesimal, $I(\bm{p},E;\bm{q})$ can reduce to a much familiar and useful form
+		\begin{equation}\label{3.3}
+			I(\bm{p},E;\bm{q})=\begin{cases}
+				I_+\equiv\dfrac{-i\pi}{cq(cq-E+\xi_{\bm{p-q}})+i\delta'},&\mathrm{sgn}(\xi_{\bm{p-q}})>0,\\
+				I_-\equiv\dfrac{i\pi}{cq(cq+E-\xi_{\bm{p-q}})+i\delta'},&\mathrm{sgn}(\xi_{\bm{p-q}})<0.
+			\end{cases}
+		\end{equation}
+		Hence \eqref{3.1} becomes
+		\begin{align}
+			\Sigma(\bm{p},E)=\dfrac{ig^2}{(2\pi)^4}\,&\left(\int_{\xi_{\bm{p-q}}>0}\,I_+ +\int_{\xi_{\bm{p-q}}<0}\,I_-\right)\cdot c^2q^2\,\dd\bm{q} \label{3.3}
+		\end{align}
+		%, and in the last line we introduce the \emph{Heaviside step function} $H(x)$ to include both the condition $cq-E>0$ and $cq-E<0$.\par
+		Apparently if $cq-E>0$ the integrand function becomes exactly zero, so only $q<\frac{E}{c}$ contribute to the integral here. But one should remind that phonon momentum is also confined by the \emph{Debye frequency} $cq<\omega_D$, so the results should be splitted into two cases:
+		\begin{equation}\label{3.4}
+			\mathrm{Im}\,\Sigma(\bm{p},E)=
+			\begin{cases}
+				\displaystyle\dfrac{\pi g^2c^2}{(2\pi)^4}\int_0^{\frac{E}{c}}\dfrac{1}{cp}q^2\,\dd q=\dfrac{\pi g^2}{(2\pi)^4 c^2 p}E^3\sim E^3,\\[1.5em]
+				\displaystyle\dfrac{\pi g^2c^2}{(2\pi)^4}\int_0^{\frac{\omega_D}{c}}\dfrac{1}{cp}q^2\,\dd q=\dfrac{\pi g^2}{(2\pi)^4 c^2 p}\omega_D^3\sim 1,
+			\end{cases}
+		\end{equation}
+\fi
+
+		Again, since we only concern about the imaginary part of $\Sigma(\bm{p},E)$, Sokhotsky-Wiestrass formula can also be applied to extract the \emph{imaginary part} of \eqref{3.2}
+		\begin{align*}
+			\mathrm{Im}\,\Sigma(\bm{p},E)&=\dfrac{\pi cg^2}{2(2\pi)^3}\left[\int_{\xi_{\bm{p-q}}>0}\,-q\delta \bigg(E-cq-\xi_{\bm{p-q}})\bigg)+\int_{\xi_{\bm{p-q}}<0}\,q\delta\bigg(E+cq-\xi_{\bm{p-q}})\bigg)\right]\dd\bm{q}\\
+			&=\dfrac{cg^2}{8\pi}\int\dd q\,\bigg\{\int_{\cos\theta<\frac{m\xi_{\bm{p}}}{pq}}\dd\cos\theta\,\left[-q^3\delta \bigg(E-cq-\xi_{\bm{p}}+\dfrac{pq}{m}\cos\theta)\bigg)\right]\\
+			&\qquad\qquad+\int_{\cos\theta>\frac{m\xi_{\bm{p}}}{pq}}\dd\cos\theta\,\left[q^3\delta\bigg(E+cq-\xi_{\bm{p}}+\dfrac{pq}{m}\cos\theta)\bigg)\right]\bigg\}\\
+			&=\dfrac{cg^2}{8\pi}\int\dd q\,\bigg\{\int_{\cos\theta<\frac{m\xi_{\bm{p}}}{pq}}\dd\cos\theta\,\left[\dfrac{-q^3}{\left|\dfrac{pq}{m}\right|}\delta \bigg(\cos\theta-\dfrac{m}{pq}(\xi_{\bm{p}}+cq-E)\bigg)\right]\\
+			&\qquad\qquad+\int_{\cos\theta>\frac{m\xi_{\bm{p}}}{pq}}\dd\cos\theta\,\left[\dfrac{q^3}{\left|\dfrac{pq}{m}\right|}\delta\bigg(\cos\theta-\dfrac{m}{pq}(\xi_{\bm{p}}-E-cq)\bigg)\right]\bigg\}\\
+			%&=\dfrac{-\pi g^2c^2}{(2\pi)^3}\int\dd q\,\bigg\{\dfrac{-mq^3}{|cpq^2|}+\dfrac{H(cq-E)}{|-cpq^2|}mq^3\bigg\}
+		\end{align*}
+	\end{widetext}
+	where in the second line we again utilize the \emph{long wave-length} condition that $\xi_{\bm{p-q}}=\xi_{\bm{p}}-\frac{pq}{m}\cos\theta+\mathcal{O}(q^2)$. The first term is interpreted as the \emph{lifetime of quasi-electrons} and another term as \emph{lifetime of quasi-holes}. In fact, consider the cases $E\ll\omega_D$. If $E>0$, or the momentum of phonons are limited by $q<\frac{E}{c}$, then the second term has no contribution since $(\xi_{\bm{p}}-E-cq)<\xi_{\bm{p}}$. So
+	\begin{align}
+		\mathrm{Im}\,\Sigma(\bm{p},E)&=\dfrac{cg^2}{8\pi}\int_0^{E/c}\dd q\,\dfrac{mq^2}{p}=\dfrac{g^2c}{24\pi v_F c^3}E^3\sim E^3,
+	\end{align}
+	where we take the Fermi surface approximation $\frac{p}{m}=v_F$. Likewise, if $E<0$, since $(\xi_{\bm{p}}+cq-E)>\xi_{\bm{p}}$, only the second term contributes to the integral, so we still have
+	\begin{align}
+		\mathrm{Im}\,\Sigma(\bm{p},E)&=\dfrac{cg^2}{8\pi}\int_0^{|E|/c}\dd q\,\dfrac{-mq^2}{p}=\dfrac{g^2c}{24\pi v_F c^3}E^3\sim E^3.
+	\end{align}
+	As for the case $E\gg\omega_D>0$, only the first term contributes to the integral and the phonon momentum is limited by $k_D$ this time, so
+	\begin{align}
+		\mathrm{Im}\,\Sigma(\bm{p},E)&=\dfrac{cg^2}{8\pi}\int_0^{k_D}\dd q\,\dfrac{mq^2}{p}=\dfrac{g^2c}{24\pi v_F c^3}k_D^3.
+	\end{align}
+
+\section{Field Renormalization Factor}
+	By the celebrated Kramers–Kronig relation, real part of self-energy at about zero temperature can be obtained by 
+	\begin{align}\label{3.1}
+	 	\mathrm{Re}\,\Sigma^R(\bm{p},E)&=\mathcal{P}\int\dd E'\,\dfrac{\mathrm{Im}\,\Sigma^R(\bm{p},E')}{E-E'}\nonumber\\
+	 	&\sim\mathcal{P}\int\dd E'\,\dfrac{E'^3}{E-E'}\nonumber\\
+	 	&\sim E_c^2 E-E^3\log\left(\dfrac{E^2}{E_c^2-E^2}\right).
+	 \end{align}
+	 Hence the field renormalization factor
+	 \begin{equation}\label{3.2}
+	  	Z=\left(1-\left.\dfrac{\partial}{\partial E}\right|_{E=0}\mathrm{Re}\,\Sigma^R(\bm{p},E)\right)^{-1}=\dfrac{1}{1-E_c^2}\neq0.
+	 \end{equation} 
+	 and Landau Fermi-liquid theory holds in solids.
+
+\section*{Appendix}\label{sec:Appendix}
+	In this section, we will give the interpretation on the seemingly partial dropping operation of the infinitesimal term in equation \eqref{3.2}.\par
+	Actually, dropping infinitesimal is \emph{superficiality}. To understand this we would better explore another explicit way to reach \eqref{3.2}. This can be done by invoking the standard proof of Sokhotsky-Wiestrass formula as following:\par
+	\begin{widetext}
+	Suppose $f(x)$ is \emph{continuous} on the $\mathbb{R}$ and \emph{compactly supported}, then (under the meaning of distribution)
+	\begin{align*}
+		\lim_{\delta\rightarrow0^+}\int\dfrac{f(x)}{x\pm i\delta}\dd x&\equiv\mp i\pi\lim_{\delta \rightarrow0^+}\int\dfrac{\delta}{\pi(x^2+\delta^2)}f(x)\dd x+\lim_{\delta \rightarrow0^+}\int\dfrac{x^2}{x^2+\delta^2}\dfrac{f(x)}{x}\dd x\nonumber\\
+		&=\mp i\pi f(0)+\mathcal{P}\int\dfrac{f(x)}{x}\dd x,
+	\end{align*}
+	where in the first term we reverse the order of limit and integral, which holds for any distribution -- and here is Dirac delta function. As for the second term, since $f(x)$ is well-defined, so is the whole integrand. And Cauchy principle value comes from the fact that the integrand is symmetric about $x=0$.
+	\end{widetext}
+
+	\indent Now switch to our case and concentrate on the phonon momentum integral, i.e., $\dd\bm{q}\equiv 2\pi\dd\cos\theta\,q^2\dd q$, then
+	\begin{equation*}
+		f(\bm{p},\omega;\bm{q})\sim\dfrac{q^4}{E-\omega-\xi_{\bm{p-q}}+i\delta_{\bm{p-q}}}
+	\end{equation*}
+	is well-defined on the real momentum axis with the help of up and down shift $i\delta_{\bm{p-q}}$ and the proof above can be applied to the penultimate term in \eqref{3.2} (again we emphasize that the two infinitesimals $\delta$ are \emph{independent}) and we are done.
+
+\bibliographystyle{apsrev} % apsrev is format for PRL of APS
+\bibliography{paper}
+
+\end{fmffile}
+\end{document}
